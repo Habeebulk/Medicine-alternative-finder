@@ -6,8 +6,8 @@ A full-stack Machine Learning application that predicts the expected market pric
 
 ## Live Demo
 
-- 🌐 Frontend: https://medicine-alternative-finder-bfoajypq6fwsv2ifbfb7un.streamlit.app/
-- 🚀 API Docs: https://medicine-alternative-finder.onrender.com/docs
+- Frontend: https://medicine-alternative-finder-bfoajypq6fwsv2ifbfb7un.streamlit.app/
+- API Docs: https://medicine-alternative-finder.onrender.com/docs
 
 ---
 
