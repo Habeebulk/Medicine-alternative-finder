@@ -1,4 +1,4 @@
-API_URL = "https://medicine-alternative-api.onrender.com"
+API_URL = "https://medicine-alternative-finder.onrender.com"
 
 import requests
 import streamlit as st
