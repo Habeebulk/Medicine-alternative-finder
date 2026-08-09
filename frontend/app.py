@@ -17,13 +17,20 @@ st.write(
     "Search a medicine and discover cheaper alternatives."
 )
 
-query = st.text_input(
-    "Search Medicine"
-)
-
 suggestions = []
 
-if query:
+with st.form("search_form"):
+
+    query = st.text_input(
+        "Search Medicine"
+    )
+
+    search_button = st.form_submit_button(
+        "Search"
+    )
+
+
+if search_button and query:
 
     response = requests.get(
         f"{API_URL}/search",
@@ -45,7 +52,7 @@ if suggestions:
 
     )
 
-if st.button("Find Alternatives"):
+if selected and st.button("Find Alternatives"):
 
     if selected is None:
 

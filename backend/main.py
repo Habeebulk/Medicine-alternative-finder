@@ -38,13 +38,12 @@ def predict(request: MedicineRequest):
 def search_medicine(query: str = Query(..., min_length=1)):
 
     query = query.strip().lower()
+    query = " ".join(query.split())
 
     matches = clean_df[
         clean_df["brand_name"]
-        .str.split()
-        .str[0]
         .str.lower()
-        .str.startswith(query.lower())
+        .str.startswith(query)
     ]["brand_name"]
 
     return (
