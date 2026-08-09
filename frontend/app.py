@@ -17,17 +17,18 @@ st.write(
     "Search a medicine and discover cheaper alternatives."
 )
 
-suggestions = []
+if "suggestions" not in st.session_state:
+    st.session_state.suggestions = []
+
+if "selected" not in st.session_state:
+    st.session_state.selected = None
+
 
 with st.form("search_form"):
 
-    query = st.text_input(
-        "Search Medicine"
-    )
+    query = st.text_input("Search Medicine")
 
-    search_button = st.form_submit_button(
-        "Search"
-    )
+    search_button = st.form_submit_button("Search")
 
 
 if search_button and query:
@@ -38,43 +39,35 @@ if search_button and query:
     )
 
     if response.status_code == 200:
-        suggestions = response.json()
+        st.session_state.suggestions = response.json()
+        st.session_state.selected = None
 
-selected = None
 
-if suggestions:
+if st.session_state.suggestions:
 
     selected = st.selectbox(
-
         "Select Medicine",
-
-        suggestions
-
+        st.session_state.suggestions
     )
 
-if selected and st.button("Find Alternatives"):
+    st.session_state.selected = selected
 
-    if selected is None:
 
-        st.warning("Please select a medicine.")
+if st.session_state.selected:
 
-    else:
+    if st.button("Find Alternatives"):
 
-        with st.spinner("Finding alternatives..."):
-
-            response = requests.post(
-
-                f"{API_URL}/predict",
-
-                json={
-                    "medicine_name": selected
-                }
-
-            )
+        response = requests.post(
+            f"{API_URL}/predict",
+            json={
+                "medicine_name": st.session_state.selected
+            }
+        )
 
         if response.status_code == 200:
 
             result = response.json()
+
             searched = result["searched_medicine"]
 
             st.subheader("Selected Medicine")
